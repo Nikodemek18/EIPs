@@ -2,7 +2,7 @@
 eip: TBD
 title: YES Compliance Token 
 author: Tyson Malchow (@tysonmalchow), Michael Dunworth (@MikeD123)
-discussions-to: https://github.com/sendwyre/yes-compliance-token
+discussions-to: https://github.com/sendwyre/yes-compliance-token/issues/1
 status: Draft
 type: ERC
 category: ERC
@@ -17,26 +17,30 @@ requires: ERC721
 We propose a flexible, lightweight on-chain compliance ecosystem. It provides mechanisms 
 for _validators_ to attest to and record specific compliance claims on behalf of _end-users_, which in turn may
 be used by _integrators_ seeking to know if some specific compliance requirement has been met by the owner of a
- particular address. We define these interactions in pursuit of a safe, legally compliant blockchain 
+particular address. We define these interactions in pursuit of a safe, legally compliant blockchain 
 environment.
 
 Think "Twitter Verified Blue Checkmark," but for on-chain compliance.
 
 ## Abstract
 <!--A short (~200 word) description of the technical issue being addressed.-->
-Compliance claims are distributed within an ERC721-compliant non-fungible token. This interface allows end-users to 
+Compliance attestations are distributed within an ERC721-compliant non-fungible token. This interface allows end-users to 
 independently and securely associate (or de-associate) their compliance status with one or many Ethereum addresses using
-an already established paradigm. We make no assumptions about the number of addresses owned by a particular person or
-business entity, nor we do we require a compliant entities to maintain any special handling  
-for these tokens beyond ERC721.
+an already established paradigm: any address which holds one of these such tokens has a legally identified party behind it
+with any number of specific queryable compliance attestations.
 
-Claims are attested by (and therefore tokens may be issued by) _validators_. These are organizations which provide specific
-verifications for end-users; ultimately, the _Ecosystem Owner_ (original contract owner) backs the claims distributed on the network. 
+We therefore make no assumptions about the number of addresses owned by a particular person or
+business entity, nor we do we require a compliant entities handle these tokens any differently than other ERC721 tokens.
+
+Claims are attested to by _validators_ (who may therefore also mint tokens tied to these attestations). These are 
+organizations which provide specific
+verifications for end-users; ultimately, the _Ecosystem Owner_ (original contract owner) backs the claims distributed on the 
+network.
 The specific claims allowed are defined authoritatively by this document and may be country-specific.
 
 When an end-user attempts to interact with some 3rd-party financial service or application which supports this protocol 
-(an _integrator_), the application can quickly query the compliance status of the end-user on the blockchain. A  
-query API is defined so that the partner may contextualize their needs and discover if a particular address meets
+(an _integrator_), their application can quickly query the compliance status of the end-user on the blockchain. A  
+query API is defined so that the integrator may contextualize their needs and discover if a particular address meets
 a specific compliance requirement.
 
 One deployed contract of this token encompasses a single ecosystem of recognized validators in the space. This
@@ -47,18 +51,18 @@ query them all through a single token. The Ecosystem Owner ultimately controls t
 <!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
 
 The problem of compliance across the cryptocurrency landscape is well-known. Traditional financial institutions have rigorous
-checks and balances as well as extensive reporting to maintain legal compatibility. Crypto, on the other hand,
-has generally been lacking the formalized oversight necessary to spur such regulation.
+checks and balances as well as extensive reporting to maintain legal compatibility (and reduce assumed risk). Crypto, on the
+ other hand, has so far been lacking much of the formalized oversight necessary to spur such regulation.
 
 When transactions are deemed fradulent
 or otherwise illegal (money laundering, etc), mechanisms must be in place to allow authorities to locate the involved parties.
-Furthermore, some degree transaction data must be reported to authorities to assist them in locating such behavior.
+Furthermore, some degree of transaction data must be regularly sent to authorities to assist them in locating such behavior.
 These requirements blossom into a fragmented landscape of rules and restrictions that vary by country and industry. 
 Combined with the relative difficulty in
-proving a digital actor is a who they claim to be, this represents a significant burden of effort for any organization who wishes 
+proving that a digital actor is a who they claim to be, this represents a significant burden of effort for any organization who wishes 
 to innovate in the financial world.
 
-As cryptocurrency innovation accelerates, straightforward solutions to compliance are necessary to support it.
+As cryptocurrency innovation accelerates, straightforward solutions to this compliance maze will become increasingly important.
 Developers (both dApp and otherwise) need the ability to achieve a confident degree of compliance, and together 
 should not have to collectively duplicate the effort required to achieve this. 
 
@@ -70,19 +74,33 @@ See the YES interface definition
 
 #### Token Operation
 
-The YES system distinguishes between _tokens_ and _entities_. An entity is a business or individual who maintains
-some verified compliance status. An entity may have many tokens. One token will always have a single entity. All
-tokens are linked to an identified entity and can be used interchangeably as proof-of-compliance. This proof represents
+The YES system distinguishes between two high-level concepts, _tokens_ and _entities_. An entity is a
+ business or individual who maintains
+some verified compliance status (an identified party). An entity may have many tokens, though one token will 
+always have a single entity. All
+tokens can be used interchangeably as proof-of-compliance. This proof represents
 a formally (and rigorously) identified 
 entity - business or individual - who has met specific compliance requirements, as attested to by one or more validators
-(and therefore transitively by the Ecosystem Owner).
+(and therefore transitively by the Ecosystem Owner). The actual identity of the entity is protected by the validators
+and is not on the blockchain.
 
-A validator will interact with the end-user in order to validate the identity they are claiming as well as the specific
-requirements related to some compliance requirements - request documentation, signatures, proof, etc.
- After this process
+A validator will interact with the end-user in order to validate the identity they are claiming as well as a
+set of compliance attestions. They will request documentation, signatures, proof, etc. 
+pursuant to the corresponding requirements.
+After this process
 concludes, the validator assigns the corresponding on-chain YES marks. These marks are attached to the end-users' 
 entity and attest to the outcome 
-of specific predefined degrees of compliance. They are always boolean; present, or not, without degree.
+of specific predefined degrees of compliance. They are always boolean; present, or not, without degree. 
+
+> TODO maybe: use [DID](https://w3c-ccg.github.io/did-spec/) identifiers instead of (some of) the following?
+
+Entity identifiers
+are validator-generated and their scheme is not mandated by this document - they should be random and unique, and generation 
+stability between validators is unnecessary. To alleviate duplicated effort on the network, an end-user having gone
+through verification may choose to present their existing tokens to skip such effort elsewhere. It may be necessary for
+validators to develop additional off-chain channels to mediate against users acquiring multiple differing entity IDs, if
+such acquisition was harmful to the ecosystem. (This helps slightly to protect end-user privacy and also avoids a tedious
+rabbithole of difficult naming formalities).
 
 The validator may mint and send one or more new tokens to the end-user, which are linked to the entity that has their YES 
 attestations. Once they possess a token, they're then free to create more tokens
@@ -115,7 +133,7 @@ degree of safety to prevent tokens from getting erroneously (or maliciously) mov
 
 ***Limited Tokens:*** _(Experimental)_: For security, we also provide a _limited_ token. This is a token which cannot be used 
 to mint others. In most cases, a token permits its holder to mint new tokens; a limited token cannot. This
-is useful as a division of privilege to more strongly safeguard the production new tokens. Systems which do not support
+is useful as a division of privilege to more strongly safeguard the production new tokens. Integrators who do not support
 such a distinction can simply ignore limited tokens.
 
 ***Ecosystem Proxying:*** _(Future/Maybe)_: Token 'proxying' to enable the Ecosystem Owner to delegate token recognition to 
@@ -124,31 +142,33 @@ of partners, yet remain queryable through a single token interface.
 
 #### Regulatory Mechanics
 
-The usage of these tokens ***does not*** relinquish the need for businesses themselves to always remain compliant. 
+The usage of these tokens ***does not*** relinquish the need for businesses themselves to always remain compliant pursuant
+to the regulatory authorities in their industry. 
 However,
-any business may establish an agreement with the Ecosystem Owner which offloads the KYC/AML requirements to the
-Ecosystem Owner. In the case of applications which manage user-controlled funds, they are not money services businesses,
+such businesses may establish an agreement with the Ecosystem Owner in order to help offload portions of the burden. In the case
+ of applications which manage user-controlled funds, they are not money services businesses,
 as they do not custodialize their customers' funds. Therefore, they are not required to maintain these licenses. 
 
 However, this passes the buck of remaining compliant to the end-user. If someone wants to trade money with a friend, with an 
 exchange, with a business, anywhere - they want to know they are properly handing over the liability of 
-what happens with those funds. This ensures there are proper channels for legal recourse when required. 
+what happens with those funds. This ensures there are proper channels for legal recourse when required, as well as
+following all ongoing reporting requirements.
 
 This proof is provided as a chain of liable, well-identified parties. However, privacy should be maintained as best 
-as possible. I should not need to know the details of the person with whom I'm interacting; merely, I should have 
-trustworthy evidence that they are capable of bearing responsibility for their actions. This comes as a guarantee
+as possible. One should not need to know the details of the person with whom they're interacting; they should merely have 
+trustworthy evidence that the counterparty is capable of bearing responsibility for their actions. This comes as a guarantee
 from a liable party, the Ecosystem Owner.
  
 All ongoing reporting and fraud prevention is then the responsibility of the Ecosystem Owner, which may have 
-delegated it further (through agreements) with other parties (validators). An integrator needn't treat
+delegated it further (through agreements) with other parties (validators, usually). An integrator needn't treat
 tokens differently which have been validated by differing parties (unless they want to).
 
 In the cases of businesses which custodialize their customers' funds, they must (at the least, in the US) be licensed 
 money service businesses. They must follow all relevant reporting requirements as dictated by their business practices
 in their own locality, and this protocol does nothing to alleviate those requirements. However, this protocol does
-offer an avenue to offload this relatively rigorous process to a set of the validators in the 
-ecosystem. By forming an agreement with a validator, enabling an end-user UX flow for such processing, they can gain
-access to a much larger body of verified customers through the on-chain query API.
+offer an avenue to offload portions of this relatively rigorous process to a set of the validators in the 
+ecosystem. By honoring the end-result from the validation process (provided by a validator), they gain confident access to both
+their own (validated) end-users as well as any other user ever validated in the ecosystem.
 
 ## YES Marks: Compliance Attestation Codes
 
@@ -206,7 +226,7 @@ articulating its requirements. Or, it may define a new code which has no general
     2. Tier 2 Compliance - 5 second video with specific verbal authorization, 
        (including verifier organization's name)
     10. Accredited Investor: Follows SEC-defined regulations - Rule 501 of Regulation D
-    130. US S or C Corp. 
+    130. US S or C Corp. (Tier 1) 
       a. Articles of Incorporation
       b. Cap table
     200. FinCEN Registered MSB - https://www.fincen.gov/msb-registrant-search
@@ -216,17 +236,16 @@ articulating its requirements. Or, it may define a new code which has no general
 ## Rationale (in-progress)
 <!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
 
+In drafting this document, our primary goal has been to materialize a direct, simple, clean implementation which solves
+the most glaring problems facing us and our partners in the space. We need a way to attach simple attestations
+with predefined compliance meaning, per-country, to end-users making no assumptions about their blockchain existence except
+that they have 1 or more wallet addresses under their control.
+
+
 todo
 - identity vs compliance
-- 721 - ease/standardization/wallet integrations
 - outcome-signatures instead of collections of proof items
 - limited/finalization for security
-
-*On ERC721*:
- 
-Simple lookups for wallets results in a smoother adoption process for teams that are looking to leverage this for the growth of their product offering. Leveraging the broad adoption of ERC-20, and the current momentum of ERC-721, this will minimize any additional implementation friction. 
- 
-Leveraging the current moment means that teams that wish to be compliant, can do so much faster without the heavy capital requirements.
 
 *On outcome attestations instead of collections of proof items*:
 
@@ -240,39 +259,68 @@ No double-handling of data off-chain is good, this also results in no additional
 Not just software costs for verification, but gas costs reduction as multiple token issuance isn’t needed if leveraging on-chain verification lookups via isYes or requireYes
 
 
-In drafting this design, our primary goal has been to materialize a direct, simple, clean implementation which solves
-the most glaring problems facing us and our partners in the space. We need a way to attach simple attestations
-that had predefined definitions in the context of compliance, per-country. 
+#### Related Works
 
-#### Related Works (in-progress)
+In order to better contextualize our approach to other relevant activity in the industry, we present some brief notes on a handful of specific 
+standards/projects:
 
-In order to contextualize our approach to other relevant activity in the industry, 
+*ERC-725/735 - Identity, Claim Holder*: The ERC725 standard merges identity and key managment into a single concept that allows a stable identity (address)
+to maintain a published catalog of keys associated with that identity (and those keys' individual permissions/roles). It gives a person (or more generally,
+any _thing_) its own representation on the blockchain.
 
-*ERC-725 - Identity*: This standard is ultimately about formalizing a key management strategy. It conflates identity with key management a bit - mostly due
-to the relative permanace of deploy blockchain code, as outlined [here](https://medium.com/@tyleryasaka/erc725-proposed-changes-ea2dc221136e)). ERC725 neither
-conflicts nor eclipses the standard we are proposing; they are entirely compatible, and we anticipate explicitly incorporating support for it into this standard.
+ERC735 is a closely related standard that defines a set of mechanics for requesting, issuing, and querying a set 
+of signed claims. Claims are address-specific signed structures that are one-per-topic-per-issuer, where topics is a (to-be?) standardized 
+identifier namespace of claim categories.
 
-*ERC-735 - Claim Holder*: An extremely closely related standard, ERC-735 allows trust to be transferred to claims issuers, much in the same way we have delegated
-trust to the verifiers. 
+Together, they form a managed identity which can accumulate signed claims from many parties.
 
-*ERC-1404 - Simple Restricted Token Standard*: This 
+While this is theoretically similar in concept design, our approach is cheaper in its 
+blockchain footprint as there is only a single deployed contract involved, and the on-chain claims information
+is recorded at a lower fidelity.
 
-*ERC-1056 - Lightweight Identity*: 
+The approaches are not mutually exclusive - if the outcomes of the various 
+compliance checks have equivalent mappings atop ERC735, an extension to the implementation could allow a token-holder to link
+their entity to an ERC725/735 identity (should they have one). In turn, such an extension would export the YES claims to equivlaent 
+ones consumable by ERC735. The ERC725 identity would possess the YES compliance status as any other address through possession of the
+token.
 
-*ERC-890*: 
+*ERC-1056 Lightweight Identity*: This is a much cheaper alternative to ERC725 and is strictly identity, not (necessarily) claims. 
+As with ERC725, possession of a YES token would give the identity its registered compliance status and minting powers.
 
-*R Token*: 
-requires that the verification protocol has knowledge of every coin and security that it can carry. higher walled garden, 
-but slower to respond to innovation. new coins and token types have a much longer process to get added, as inspection is expected
-to leverage this context to provide authoritative allowances.
+*ERC-1404 Simple Restricted Token Standard, R Token*: These standards serves to define an APIs which enable restrictions on the 
+movement of ERC20 tokens. They are compatible with the YES token approach, as any particular regulator implementation could include an
+on-chain strategy which leverages the YES query API to make decisions on transfer restrictions.
+While compatible in this way, our focus is the codification of the compliance outcomes and the ability to give that information to
+interested parties. While the outcomes are the same in some cases, creating codified restrictions at the coin/token level 
+addresses a different problem.
+
+*ERC-780*: Lightweight open on-chain datastructure which allows anyone to publish their own claims. Compatible in a similar context
+as ERC735, in that any YES attributions could (in-theory) be linked and/or exported to a 780 registry. However, it requires that 
+real claim data is placed on the chain, so privacy is sacrificed.
 
 <!-- ## Test Cases
 We have test cases covering all the fundamental mechanics of the draft implementation [here](https://github.com/sendwyre/yes-compliance-token/blob/develop/test/yestoken.js). 
 -->
 
-## FAQ (in-progress)
+## FAQ
 
-Though it is possible for someone to generate an endless supply of tokens
+#### Does allowing all token-holders weaken their meaning or present a security risk?
+
+Though it is possible for someone to generate an endless supply of tokens, all tokens generated by an particular entity
+is bound to the identity of that entity. It's equivalently possible to get new drivers licenses issued for yourself and sell them.
+However, you are adopting the risk of what happens with those licenses after they're sold. Similarly, individuals are disincentivized
+to distribute their tokens because it opens them up to liability for actions they are not themselves performing. Should legal problems
+arise as a result of such a circumstance, the actual identified holder is on the hook to provide an avenue to (legal) justice.
+
+#### Forbidding token movement when target already possesses an identity - DDoS?
+
+In theory, an actor on the network with a valid but fradulently acquired YES identity could create a large supply of their 
+own tokens sending them to addresses which are not theirs, thereby blocking all those addresses from accepting their 
+actual owners' identity token.
+
+While this is possible, the timing is constrained, and lockability (and centralized control in general) of the token system means
+that a validator can revoke or disable the set of tokens in response to such an attack.
+
 
 ## Implementation
 <!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
