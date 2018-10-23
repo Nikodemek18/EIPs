@@ -233,31 +233,13 @@ articulating its requirements. Or, it may define a new code which has no general
     201. SEC Registered ATS License Holder
 
 
-## Rationale (in-progress)
+## Rationale
 <!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
 
 In drafting this document, our primary goal has been to materialize a direct, simple, clean implementation which solves
-the most glaring problems facing us and our partners in the space. We need a way to attach simple attestations
-with predefined compliance meaning, per-country, to end-users making no assumptions about their blockchain existence except
-that they have 1 or more wallet addresses under their control.
-
-
-todo
-- identity vs compliance
-- outcome-signatures instead of collections of proof items
-- limited/finalization for security
-
-*On outcome attestations instead of collections of proof items*:
-
-A signature construction should be kept personal, the end result is what should be published. Verifying that the end result is the only component published, but constructing the signature is not necessary in a public ledger // I think this is what you mean, yeah?
-
-Minimizing a large amount of gas costs in the process, while preserving privacy for the end-user.
- 
-limited/finalization for security
-Single-token-many-verifier
-No double-handling of data off-chain is good, this also results in no additional on-chain bloating from double minting the same level of attestation? Example: Two MSB’s saying that you’re verified to an MSB level?
-Not just software costs for verification, but gas costs reduction as multiple token issuance isn’t needed if leveraging on-chain verification lookups via isYes or requireYes
-
+the most glaring problems facing us and our partners in the space. We need an effective mechanism to foster compliant 
+behavior for innovation both on and off chain. We seek to minimize gas costs and integration friction, while maintaining 
+privacy and simplicity.
 
 #### Related Works
 
