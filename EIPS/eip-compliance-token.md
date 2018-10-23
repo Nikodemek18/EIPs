@@ -185,12 +185,12 @@ a more restrictive or unsupported region within a country.
     128. (special) Ecosystem Owner - only one. can attest all marks except `128`
     129. (special) Ecosystem Validator - can attest all marks except `128`, `129`
 
-#### Generalized Definitions:
+#### Generalized (Country-Agnostic) Definitions:
 
 These define the context and minimum requirements of each attestation in a 
 general, country-agnostic fashion.
 
-**Individual**:
+Individual:
 
     (most significant bit is 0)
     1. Tier 1 Individual
@@ -202,7 +202,7 @@ general, country-agnostic fashion.
        b. Video Evidence: Intention to attest (by whom), facial/attribute matching
     10. Accredited Investor 
 
-**Business/Organization**:
+Business/Organization:
 
     (most significant bit is 1)
     130. Tier 1 Corporation
@@ -217,7 +217,7 @@ general, country-agnostic fashion.
 The definition per country matches the structure of a generalized definition above, further
 articulating its requirements. Or, it may define a new code which has no generalized equivalent.
 
-**USA (840)**:
+USA (840):
 
     1. Tier 1 Compliance:
       a. Name, DOB, SSN
