@@ -29,9 +29,6 @@ independently and securely associate (or de-associate) their compliance status w
 an already established paradigm: any address which holds one of these such tokens has a legally identified party behind it
 with any number of specific queryable compliance attestations.
 
-We therefore make no assumptions about the number of addresses owned by a particular person or
-business entity, nor we do we require a compliant entities handle these tokens any differently than other ERC721 tokens.
-
 Claims are attested to by _validators_ (who may therefore also mint tokens tied to these attestations). These are 
 organizations which provide specific
 verifications for end-users; ultimately, the _Ecosystem Owner_ (original contract owner) backs the claims distributed on the 
@@ -85,7 +82,7 @@ entity - business or individual - who has met specific compliance requirements, 
 and is not on the blockchain.
 
 A validator will interact with the end-user in order to validate the identity they are claiming as well as a
-set of compliance attestions. They will request documentation, signatures, proof, etc. 
+set of compliance attestation. They will request documentation, signatures, proof, etc. 
 pursuant to the corresponding requirements.
 After this process
 concludes, the validator assigns the corresponding on-chain YES marks. These marks are attached to the end-users' 
@@ -177,7 +174,7 @@ below. The tiers of permissions required for the outlined mechanics are also enc
 codes 128 and 129. All codes are granted in country-specific contexts, except for the owner code 128 (which has a country
 
 Many codes have a generalized meaning along with a country-specific definition, which is contextualized by the local
-agencies and regulations of a specific country. Regional distinctions are not supported; attestions must be country-wide, 
+agencies and regulations of a specific country. Regional distinctions are not supported; attestations must be country-wide, 
 though it is the responsibility of any particular _integrator_ to ensure their customers are not accessing a service from
 a more restrictive or unsupported region within a country.
 
