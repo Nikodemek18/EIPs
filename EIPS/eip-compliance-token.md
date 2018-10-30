@@ -217,7 +217,7 @@ articulating its requirements. Or, it may define a new code which has no general
 USA (840):
 
     1. Tier 1 Compliance:
-      a. Name, DOB, SSN
+      a. Name, DOB, SSN, Address (CIP1)
       b. Scan of drivers license OR passport
       c. AML: Copy of a bank statement
     2. Tier 2 Compliance - 5 second video with specific verbal authorization, 
