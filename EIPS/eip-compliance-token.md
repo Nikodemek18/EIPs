@@ -306,6 +306,14 @@ that a validator can revoke or disable the set of tokens in response to such an 
 
 A draft implementation covering the entirety of this spec is located [here](https://github.com/sendwyre/yes-compliance-token).
 
+## Additional Reading
+
+Increased government parties and double handling of information - [Link](https://www.gao.gov/assets/680/675400.pdf) 
+Multiple parties for oversight - [Link](https://en.wikipedia.org/wiki/Financial_Stability_Oversight_Council)
+Financial Intelligence Unit - [Link](https://en.wikipedia.org/wiki/Financial_intelligence)
+Regulatory Oversight - [Link](https://www.investing.com/brokers/regulation)
+Securities Market Participants - [Link](https://en.wikipedia.org/wiki/Securities_market_participants_(United_States))
+
 ## Copyright
 
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
