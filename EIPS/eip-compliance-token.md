@@ -300,6 +300,25 @@ actual owners' identity token.
 While this is possible, the timing is constrained, and lockability (and centralized control in general) of the token system means
 that a validator can revoke or disable the set of tokens in response to such an attack.
 
+#### General FAQ // Unrelated for this section?
+
+#### What are examples of this "validator to validator" information sharing in the real world today? Does it ever happen or is this a new concept?
+
+The reason why companies struggle to find banking partners willing to service them is because banks see them as an MSB. This scares banks as it means theres risk that the company could not be upholding their policy verifying people, and the bank is then at risk for disbursing payments to people they shouldn't be. We went into depth explaining [why](https://blog.sendwyre.com/msbs-must-read-for-fintech-entrepreneurs-crypto-or-non-crypto-5ed3cf8aae40) this is the case, and what we'd learned. 
+
+#### How would validators share information in the event of regulatory intervention?
+
+The scope of this proposal doesn't cover circumstances beyond the entity/validator relationship. At the moment, any information sharing is done through encrypted storage/uploads to the relevant parties. 
+
+#### What does an agreement between two validators look like? Does it protect them from liability?
+
+It varies with language in terms of how much liability is taken on by signing an agreement. There's multiple types of agreements that cover AML/KYC policies being adhered too. Here's language from an example agreement known as a "Currency Purchase Agreement". Common use-case would be large scale OTC (Over-The-Counter) trading.
+
+_Section 4.7 Confidentiality. Each of [TradingCo.] and Counterparty hereby agrees to not disclose, and to otherwise keep confidential, the transactions contemplated hereby, the existence or nature of any relationship between the Parties, the name of the other Party or the fact that the Parties engaged in any transaction (“Confidential Information”), provided, however, that each Party may disclose Confidential Information to its directors, officers, members, employees, agents, affiliates, and professional advisers or to financial institutions providing services to a Party in connection with any applicable anti-money laundering or compliance requirements . If either Party is required by law, rule or regulation, or advised by legal counsel to disclose such information (the “Required Party”), the Required Party will, to the extent legally permissible, provide the other Party (the “Subject Party”) with prompt written notice of such requirement so that such Subject Party may seek an appropriate protective order or waive compliance with this Section 4.7. The Subject Party shall promptly respond to such request in writing by either authorizing the disclosure or advising of its election to seek such a protective order, or, if such Subject Party fails to respond promptly, such disclosure shall be deemed approved. The confidentiality obligations set forth in this Section 4.7 shall survive the termination or expiration of this Agreement.
+
+Essentially it is saying that we respect confidentiality amongst one another, however if any information is required based on legal intervention, or our lawyers saying so, then we'll both be cooperative.
+
+Implementation of this proposal would mean that all these agreements and paperwork could be reduced down to simply signing a message between two validators.
 
 ## Implementation
 <!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
@@ -313,7 +332,7 @@ A draft implementation covering the entirety of this spec is located [here](http
 * Financial Intelligence Unit - [Link](https://en.wikipedia.org/wiki/Financial_intelligence)
 * Regulatory Oversight - [Link](https://www.investing.com/brokers/regulation)
 * Securities Market Participants - [Link](https://en.wikipedia.org/wiki/Securities_market_participants_(United_States))
-
+* FINRA example template for AML/CFT - [Link](http://www.finra.org/industry/anti-money-laundering-template-small-firms)
 ## Copyright
 
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
