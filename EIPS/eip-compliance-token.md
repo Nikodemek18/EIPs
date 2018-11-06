@@ -300,8 +300,6 @@ actual owners' identity token.
 While this is possible, the timing is constrained, and lockability (and centralized control in general) of the token system means
 that a validator can revoke or disable the set of tokens in response to such an attack.
 
-#### General FAQ // Unrelated for this section?
-
 #### What are examples of this "validator to validator" information sharing in the real world today? Does it ever happen or is this a new concept?
 
 The reason why companies struggle to find banking partners willing to service them is because banks see them as an MSB. This scares banks as it means theres risk that the company could not be upholding their policy verifying people, and the bank is then at risk for disbursing payments to people they shouldn't be. We went into depth explaining [why](https://blog.sendwyre.com/msbs-must-read-for-fintech-entrepreneurs-crypto-or-non-crypto-5ed3cf8aae40) this is the case, and what we'd learned. 
